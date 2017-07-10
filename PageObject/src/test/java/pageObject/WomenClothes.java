@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
 public class WomenClothes extends Page {
 
 public String pageURL = "http://automationpractice.com/index.php?id_category=3&controller=category";	
-public String sortingOptionDropdownSelectorID = "selectProductSort";
+private String sortingOptionDropdownSelectorID = "selectProductSort";
 private String PriceAscSortingOptionID = ".//*[@id='selectProductSort']/option[2]";
 private String productListSelector = ".//*[@id='center_column']/ul[@class='product_list grid row']/li";
 
@@ -23,7 +23,7 @@ public void changeSortingOption (){
 	PriceAscSortingOption.click();
 }
 
-public ArrayList<Double> getItemsPrices () {
+private ArrayList<Double> getItemsPrices () {
 	
 	List<WebElement> ItemsList = driver.findElements(By.xpath(productListSelector));
 	ArrayList<Double> prices = new ArrayList<Double>();
