@@ -27,8 +27,6 @@ public ArrayList<Double> getItemsPrices () {
 	
 	List<WebElement> ItemsList = driver.findElements(By.xpath(productListSelector));
 	ArrayList<Double> prices = new ArrayList<Double>();
-	//System.out.println(ItemsList.size());
-	//String pattern = "[0-9]{1,}[.][0-9]{1,}";
 	Pattern pattern = Pattern.compile("[0-9]{1,}[.][0-9]{1,}");
 	
 	
@@ -37,7 +35,6 @@ public ArrayList<Double> getItemsPrices () {
 		Matcher matcher = pattern.matcher(unformattedPrice);
 		if (matcher.find()) {
 			prices.add(Double.parseDouble(matcher.group(0)));
-			//System.out.println(prices.get(i-1));
 		}
 		
 	}
