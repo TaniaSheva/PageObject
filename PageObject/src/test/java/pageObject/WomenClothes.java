@@ -6,7 +6,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class WomenClothes extends Page {
@@ -15,6 +19,9 @@ public String pageURL = "http://automationpractice.com/index.php?id_category=3&c
 private String sortingOptionDropdownSelectorID = "selectProductSort";
 private String PriceAscSortingOptionID = ".//*[@id='selectProductSort']/option[2]";
 private String productListSelector = ".//*[@id='center_column']/ul[@class='product_list grid row']/li";
+public String colorBeigeSelector = ".//ul[@id='ul_layered_id_attribute_group_3']/li[1]/label/a";
+
+
 
 public void changeSortingOption (){
 	WebElement SortingDropdown = driver.findElement(By.id(sortingOptionDropdownSelectorID));
@@ -55,6 +62,24 @@ public boolean arePricesLowestFirst () {
 		}
 	}
 	return true;
+}
+
+private WebElement scrollToElementByOffset(WebElement element, int offset) {
+    JavascriptExecutor jse = (JavascriptExecutor) driver;
+    jse.executeScript("window.scrollTo(" + element.getLocation().getX() + "," + (element.getLocation().getY()
+            + offset) + ");");
+
+    return element;
+}
+
+public void filterByColor (String colorID) {
+	WebElement ColorIcon = driver.findElement(By.xpath(colorID));
+	scrollToElementByOffset(ColorIcon, -200);
+	WebDriverWait wait = new WebDriverWait(driver, 5);
+	ColorIcon.click();
+	
+	wait.until(ExpectedConditions.attributeToBe(By.xpath(".//*[@id='center_column']/ul"), "style", "opacity: 1;")); 
+	
 }
 }
 

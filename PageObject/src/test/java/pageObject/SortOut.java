@@ -19,21 +19,30 @@ public class SortOut {
     
 
     @Test
-    public void checkSortingOption() throws InterruptedException {
+//    public void checkSortingOption() throws InterruptedException {
     
-    	//GIVEN
+//    	//GIVEN
+//    	WomenClothes WomenClothes = new WomenClothes();
+//    	WomenClothes.openPage(WomenClothes.pageURL);
+    	//WHEN
+//    	WomenClothes.changeSortingOption();
+ //   	Thread.sleep(2000);
+    	//THEN
+  //  	assertTrue(WomenClothes.arePricesLowestFirst());
+    		  	
+ //   }
+    
+    public void filterByColor() throws InterruptedException {
+    	//GIVEN 
     	WomenClothes WomenClothes = new WomenClothes();
     	WomenClothes.openPage(WomenClothes.pageURL);
-    	//WHEN
-    	WomenClothes.changeSortingOption();
     	Thread.sleep(2000);
-    	//THEN
-    	assertTrue(WomenClothes.arePricesLowestFirst());
-    		  	
+    	//WHEN
+    	WomenClothes.filterByColor(WomenClothes.colorBeigeSelector);
     }
 
     @After
     public void stutDownDriver() {
-        driver.close();
+        //driver.close();
     }
 }
