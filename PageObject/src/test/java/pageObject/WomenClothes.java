@@ -19,7 +19,14 @@ public String pageURL = "http://automationpractice.com/index.php?id_category=3&c
 private String sortingOptionDropdownSelectorID = "selectProductSort";
 private String PriceAscSortingOptionID = ".//*[@id='selectProductSort']/option[2]";
 private String productListSelector = ".//*[@id='center_column']/ul[@class='product_list grid row']/li";
-public String colorBeigeSelector = ".//ul[@id='ul_layered_id_attribute_group_3']/li[1]/label/a";
+
+//URL
+public String colorBeigeURL = "http://automationpractice.com/index.php?id_category=3&controller=category#/color-beige";
+public String colorOrangeURL = "http://automationpractice.com/index.php?id_category=3&controller=category#/color-orange";
+
+//LABELS
+public String colorBeigeSelector = ".//*[@id='ul_layered_id_attribute_group_3']/li[1]/label/a/span";
+public String colorOrangeSelector = ".//*[@id='ul_layered_id_attribute_group_3']/li[4]/label/a/span";
 
 
 
@@ -64,23 +71,36 @@ public boolean arePricesLowestFirst () {
 	return true;
 }
 
-private WebElement scrollToElementByOffset(WebElement element, int offset) {
-    JavascriptExecutor jse = (JavascriptExecutor) driver;
-    jse.executeScript("window.scrollTo(" + element.getLocation().getX() + "," + (element.getLocation().getY()
-            + offset) + ");");
-
-    return element;
-}
-
-public void filterByColor (String colorID) {
-	WebElement ColorIcon = driver.findElement(By.xpath(colorID));
-	scrollToElementByOffset(ColorIcon, -200);
+private void filterByColor (String colorURL) {
+	openPage(colorURL);
 	WebDriverWait wait = new WebDriverWait(driver, 5);
-	ColorIcon.click();
 	
 	wait.until(ExpectedConditions.attributeToBe(By.xpath(".//*[@id='center_column']/ul"), "style", "opacity: 1;")); 
 	
 }
+
+public boolean isFilteredByColor (String colorURL, String colorLabelSelector) {
+	filterByColor (colorURL);
+	List<WebElement> ItemsList = driver.findElements(By.xpath(productListSelector));
+	int itemsQuantity = ItemsList.size();
+	WebElement colorLabel = driver.findElement(By.xpath(colorLabelSelector));
+	Pattern pattern = Pattern.compile("[0-9]");
+	Matcher matcher = pattern.matcher(colorLabel.getText());
+	matcher.find();
+	int labelItemsQuantity = Integer.parseInt(matcher.group(0));
+		
+		if (itemsQuantity == labelItemsQuantity ) {
+			return true;
+		}
+		
+		else {
+			return false;
+		}
+	}
+	
+	
 }
+
+
 
 

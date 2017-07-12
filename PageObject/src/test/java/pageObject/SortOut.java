@@ -15,34 +15,41 @@ public class SortOut {
     @Before
     public void startDriver() {
         driver = new ChromeDriver();
+        
     }
     
 
     @Test
-//    public void checkSortingOption() throws InterruptedException {
+    public void checkSortingOption() throws InterruptedException {
     
-//    	//GIVEN
-//    	WomenClothes WomenClothes = new WomenClothes();
-//    	WomenClothes.openPage(WomenClothes.pageURL);
-    	//WHEN
-//    	WomenClothes.changeSortingOption();
- //   	Thread.sleep(2000);
-    	//THEN
-  //  	assertTrue(WomenClothes.arePricesLowestFirst());
-    		  	
- //   }
-    
-    public void filterByColor() throws InterruptedException {
-    	//GIVEN 
+   	//GIVEN
+    	
     	WomenClothes WomenClothes = new WomenClothes();
     	WomenClothes.openPage(WomenClothes.pageURL);
-    	Thread.sleep(2000);
     	//WHEN
-    	WomenClothes.filterByColor(WomenClothes.colorBeigeSelector);
+    	WomenClothes.changeSortingOption();
+    	Thread.sleep(2000);
+    	//THEN
+    	assertTrue(WomenClothes.arePricesLowestFirst());
+    		  	
+    }
+    
+    @Test
+    public void filterByColorBeige() throws InterruptedException {
+    	WomenClothes WomenClothes = new WomenClothes();
+    	assertTrue(WomenClothes.isFilteredByColor(WomenClothes.colorBeigeURL, WomenClothes.colorBeigeSelector));
+    	
+    }
+    
+    @Test
+    public void filterByColorOrange() throws InterruptedException {
+    	WomenClothes WomenClothes = new WomenClothes();
+    	assertTrue(WomenClothes.isFilteredByColor(WomenClothes.colorOrangeURL, WomenClothes.colorOrangeSelector));
+    	
     }
 
     @After
     public void stutDownDriver() {
-        //driver.close();
+        driver.close();
     }
 }
