@@ -1,13 +1,13 @@
 package pageObject;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -28,7 +28,12 @@ public String colorOrangeURL = "http://automationpractice.com/index.php?id_categ
 public String colorBeigeSelector = ".//*[@id='ul_layered_id_attribute_group_3']/li[1]/label/a/span";
 public String colorOrangeSelector = ".//*[@id='ul_layered_id_attribute_group_3']/li[4]/label/a/span";
 
+public String unformattedPriceSelector = ".//*[@id='center_column']/ul/li[%d]/div/div[1]/div/div[2]/span[1]";
+public String productListBackground = ".//*[@id='center_column']/ul";
 
+public WomenClothes (WebDriver driver) {
+    super(driver);
+  }
 
 public void changeSortingOption (){
 	WebElement SortingDropdown = driver.findElement(By.id(sortingOptionDropdownSelectorID));
@@ -45,7 +50,8 @@ private ArrayList<Double> getItemsPrices () {
 	
 	
 	for (int i = 1; i <= ItemsList.size(); i++) {
-		String unformattedPrice = driver.findElement(By.xpath(".//*[@id='center_column']/ul/li[" + i + "]/div/div[1]/div/div[2]/span[1]")).getAttribute("innerText");
+		String pricePath = String.format(unformattedPriceSelector, i);
+		String unformattedPrice = driver.findElement(By.xpath(pricePath)).getAttribute("innerText");
 		Matcher matcher = pattern.matcher(unformattedPrice);
 		if (matcher.find()) {
 			prices.add(Double.parseDouble(matcher.group(0)));
@@ -75,7 +81,7 @@ private void filterByColor (String colorURL) {
 	openPage(colorURL);
 	WebDriverWait wait = new WebDriverWait(driver, 5);
 	
-	wait.until(ExpectedConditions.attributeToBe(By.xpath(".//*[@id='center_column']/ul"), "style", "opacity: 1;")); 
+	wait.until(ExpectedConditions.attributeToBe(By.xpath(productListBackground), "style", "opacity: 1;")); 
 	
 }
 

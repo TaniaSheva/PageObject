@@ -1,6 +1,7 @@
 package pageObject;
 
 import org.junit.After;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -18,13 +19,12 @@ public class SortOut {
         
     }
     
-
     @Test
     public void checkSortingOption() throws InterruptedException {
     
    	//GIVEN
     	
-    	WomenClothes WomenClothes = new WomenClothes();
+    	WomenClothes WomenClothes = new WomenClothes(driver);
     	WomenClothes.openPage(WomenClothes.pageURL);
     	//WHEN
     	WomenClothes.changeSortingOption();
@@ -36,14 +36,14 @@ public class SortOut {
     
     @Test
     public void filterByColorBeige() throws InterruptedException {
-    	WomenClothes WomenClothes = new WomenClothes();
+    	WomenClothes WomenClothes = new WomenClothes(driver);
     	assertTrue(WomenClothes.isFilteredByColor(WomenClothes.colorBeigeURL, WomenClothes.colorBeigeSelector));
     	
     }
     
     @Test
     public void filterByColorOrange() throws InterruptedException {
-    	WomenClothes WomenClothes = new WomenClothes();
+    	WomenClothes WomenClothes = new WomenClothes(driver);
     	assertTrue(WomenClothes.isFilteredByColor(WomenClothes.colorOrangeURL, WomenClothes.colorOrangeSelector));
     	
     }
