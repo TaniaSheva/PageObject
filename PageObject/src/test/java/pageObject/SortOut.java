@@ -37,6 +37,7 @@ public class SortOut {
     @Test
     public void filterByColorBeige() throws InterruptedException {
     	WomenClothes WomenClothes = new WomenClothes(driver);
+    	Thread.sleep(2000);
     	assertTrue(WomenClothes.isFilteredByColor(WomenClothes.colorBeigeURL, WomenClothes.colorBeigeSelector));
     	
     }
@@ -44,6 +45,7 @@ public class SortOut {
     @Test
     public void filterByColorOrange() throws InterruptedException {
     	WomenClothes WomenClothes = new WomenClothes(driver);
+    	Thread.sleep(2000);
     	assertTrue(WomenClothes.isFilteredByColor(WomenClothes.colorOrangeURL, WomenClothes.colorOrangeSelector));
     	
     }
